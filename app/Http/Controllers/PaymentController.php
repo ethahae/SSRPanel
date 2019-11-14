@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Components\Helpers;
 use App\Components\Yzy;
 use App\Components\AlipaySubmit;
+use App\Components\MifuSubmit;
 use App\Http\Models\Coupon;
 use App\Http\Models\Goods;
 use App\Http\Models\Order;
@@ -46,7 +47,10 @@ class PaymentController extends Controller
         }
 
         // 判断是否开启有赞云支付
-        if (!self::$systemConfig['is_youzan'] && !self::$systemConfig['is_alipay'] && !self::$systemConfig['is_f2fpay']) {
+        if (!self::$systemConfig['is_youzan'] 
+                && !self::$systemConfig['is_alipay'] 
+                && !self::$systemConfig['is_f2fpay'] 
+                && !self::$systemConfig['is_mifupay']) {
             return Response::json(['status' => 'fail', 'data' => '', 'message' => '创建支付单失败：系统并未开启在线支付功能']);
         }
 
@@ -124,6 +128,8 @@ class PaymentController extends Controller
                 $pay_way = 4;
             } elseif (self::$systemConfig['is_f2fpay']) {
                 $pay_way = 5;
+            } elseif (self::$systemConfig['is_mifupay']){
+                $pay_way = 6;
             }
 
             // 生成订单
@@ -187,6 +193,17 @@ class PaymentController extends Controller
                     'order_no' => $orderSn,
                     'amount'   => $amount,
                 ]);
+            } elseif (self::$systemConfig['is_mifupay']) {
+                $mifupay = new MifuSubmit(self::$systemConfig['mifu_user_public_key'],
+                    self::$systemConfig['mifu_user_private_key'], self::$systemConfig['mifu_merchant_code'],
+                    self::$systemConfig['mifu_agent_code'], $amount, $orderSn, Auth::user()->id,
+                    $request->ip(), self::$systemConfig['']);
+                $req = $mifupay->build_json();
+                $result = $mifupay->get_response_by_curl($req);
+                if (Str::length($result) == 0){
+                    Log::error("user:" . Auth::user()->id . ",sn:" . $sn . ", mifu response empty");
+                    return Response::json(['status' => 'fail', 'data' => '', 'message' => '创建支付单失败：请联系管理员']);
+                }
             }
 
             $payment = new Payment();
@@ -207,6 +224,8 @@ class PaymentController extends Controller
                 $payment->qr_code = $result;
                 $payment->qr_url = 'http://qr.topscan.com/api.php?text=' . $result . '&bg=ffffff&fg=000000&pt=1c73bd&m=10&w=400&el=1&inpt=1eabfc&logo=https://t.alipayobjects.com/tfscom/T1Z5XfXdxmXXXXXXXX.png';
                 $payment->qr_local_url = $payment->qr_url;
+            } elseif (self::$systemConfig['is_mifupay']) {
+                $payment->qr_local_url = $result;
             }
             $payment->status = 0;
             $payment->save();
@@ -231,7 +250,7 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            Log::error('创建支付订单失败：' . $e->getMessage());
+            Log::error('创建支付订单失败：' . $e->getMessage() . $e->getTraceAsString());
 
             return Response::json(['status' => 'fail', 'data' => '', 'message' => '创建订单失败：' . $e->getMessage()]);
         }

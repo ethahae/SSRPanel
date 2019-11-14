@@ -81,6 +81,8 @@
                         <a class="btn btn-lg green hidden-print" onclick="onlinePay(4)"> 支付宝扫码 </a>
                     @elseif(\App\Components\Helpers::systemConfig()['is_f2fpay'])
                         <a class="btn btn-lg green hidden-print" onclick="onlinePay(5)"> 支付宝扫码 </a>
+                    @elseif(\App\Components\Helpers::systemConfig()['is_mifupay'])
+                        <a class="btn btn-lg green hidden-print" onclick="onlinePay(6)"> 扫码支付 </a>
                     @endif
                   	@if($goods->type <= 2)
                         <a class="btn btn-lg blue hidden-print uppercase" onclick="pay()"> {{trans('home.service_pay_button')}} </a>

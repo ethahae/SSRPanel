@@ -377,6 +377,11 @@ INSERT INTO `config` VALUES ('92', 'google_captcha_sitekey', '');
 INSERT INTO `config` VALUES ('93', 'google_captcha_secret', '');
 INSERT INTO `config` VALUES ('94', 'user_invite_days', 7);
 INSERT INTO `config` VALUES ('95', 'admin_invite_days', 7);
+INSERT INTO `config` VALUES ('96', 'is_mifupay', 0);
+INSERT INTO `config` VALUES ('97', 'mifu_merchant_code', '');
+INSERT INTO `config` VALUES ('98', 'mifu_agent_code', '');
+INSERT INTO `config` VALUES ('99', 'mifu_user_public_key', '');
+INSERT INTO `config` VALUES ('100', 'mifu_user_private_key', '');
 
 
 -- ----------------------------

@@ -47,6 +47,9 @@
                                             <a href="#tab_9" data-toggle="tab"> 支付宝国际 </a>
                                         </li>
                                         <li>
+                                            <a href="#tab_mifu" data-toggle="tab"> mifu </a>
+                                        </li>
+                                        <li>
                                             <a href="#tab_10" data-toggle="tab"> 支付宝当面付 </a>
                                         </li>
                                         <li id="li_tab_geetest" class="tab_captcha" style="display:none;">
@@ -1052,6 +1055,77 @@
                                                 </div>
                                             </form>
                                         </div>
+                                        <div class="tab-pane" id="tab_mifu">
+                                            <form action="#" method="post" class="form-horizontal">
+                                                <div class="portlet-body">
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="is_mifupay"
+                                                                   class="col-md-3 control-label">本功能</label>
+                                                            <div class="col-md-9">
+                                                                <input type="checkbox" class="make-switch" @if($is_mifupay) checked @endif id="is_mifupay" data-on-color="success" data-off-color="danger" data-on-text="启用" data-off-text="关闭">
+                                                                <span class="help-block"> 本功能需要 <a href="http://guanli.neylab.com/" target="_blank">neylab</a> 申请开通 </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="alipay_partner" class="col-md-3 control-label">商户编码</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" type="text" name="mifu_merchant_code" value="{{$mifu_merchant_code}}" id="mifu_merchant_code"/>
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-success" type="button" onclick="setMifuPayMerchantCode()">修改</button>
+                                                                    </span>
+                                                                </div>
+                                                                <span class="help-block"> 即：merchantCode </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="mifu_agent_code"
+                                                                   class="col-md-3 control-label">代理商编码</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" type="text" name="mifu_agent_code" value="{{$mifu_agent_code}}" id="mifu_agent_code"/>
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-success" type="button" onclick="setMifuPayAgentCode()">修改</button>
+                                                                    </span>
+                                                                </div>
+                                                                <span class="help-block"> 即: agentCode </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="mifu_user_private_key"
+                                                                   class="col-md-3 control-label">RSA私钥</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" type="text" name="mifu_user_private_key" value="{{$mifu_user_private_key}}" id="mifu_user_private_key"/>
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-success" type="button" onclick="setMifuPayUserPrivateKey()">修改</button>
+                                                                    </span>
+                                                                </div>
+                                                                <span class="help-block"> 即：rsa_private_key，不包括首尾格式 </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="mifu_user_public_key"
+                                                                   class="col-md-3 control-label">RSA公钥</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" type="text" name="mifu_user_public_key" value="{{$mifu_user_public_key}}" id="mifu_user_public_key"/>
+                                                                    <span class="input-group-btn">
+                                                                    <button class="btn btn-success" type="button" onclick="setMifuPayUserPublicKey()">修改</button>
+                                                                </span>
+                                                                </div>
+                                                                <span class="help-block"> 即: rsa_public_key </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                         <div class="tab-pane" id="tab_geetest">
                                             <form action="#" method="post" class="form-horizontal">
                                                 <div class="portlet-body">
@@ -1764,6 +1838,25 @@
             }
         });
 
+        // 启用、禁用mifu
+        $('#is_mifupay').on({
+            'switchChange.bootstrapSwitch': function (event, state) {
+                var is_mifupay = state ? 1 : 0;
+
+                $.post("{{url('admin/setConfig')}}", {
+                    _token: '{{csrf_token()}}',
+                    name: 'is_mifupay',
+                    value: is_mifupay
+                }, function (ret) {
+                    layer.msg(ret.message, {time: 1000}, function () {
+                        if (ret.status == 'fail') {
+                            window.location.reload();
+                        }
+                    });
+                });
+            }
+        });
+
         // 启用、禁用支付宝当面付
         $('#is_f2fpay').on({
             'switchChange.bootstrapSwitch': function (event, state) {
@@ -2091,6 +2184,69 @@
                 });
             });
         });
+
+        //设置mifupay的商户号
+        function setMifuPayMerchantCode() {
+            var mifu_merchant_code = $("#mifu_merchant_code").val();
+            $.post("{{url('admin/setConfig')}}", {
+                _token: '{{csrf_token()}}',
+                name: 'mifu_merchant_code',
+                value: mifu_merchant_code
+            }, function (ret) {
+                layer.msg(ret.message, {time: 1000}, function () {
+                    if (ret.status == 'fail') {
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+        //设置mifupay的代理商号
+        function setMifuPayAgentCode() {
+            var mifu_agent_code = $("#mifu_agent_code").val();
+            $.post("{{url('admin/setConfig')}}", {
+                _token: '{{csrf_token()}}',
+                name: 'mifu_agent_code',
+                value: mifu_agent_code
+            }, function (ret) {
+                layer.msg(ret.message, {time: 1000}, function () {
+                    if (ret.status == 'fail') {
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+       
+        //设置mifupay用户公钥
+        function setMifuPayUserPrivateKey() {
+            var mifu_user_private_key = $("#mifu_user_private_key").val();
+            $.post("{{url('admin/setConfig')}}", {
+                _token: '{{csrf_token()}}',
+                name: 'mifu_user_private_key',
+                value: mifu_user_private_key
+            }, function (ret) {
+                layer.msg(ret.message, {time: 1000}, function () {
+                    if (ret.status == 'fail') {
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+        //设置mifupay用户私钥
+        function setMifuPayUserPublicKey() {
+            var mifu_user_public_key = $("#mifu_user_public_key").val();
+            $.post("{{url('admin/setConfig')}}", {
+                _token: '{{csrf_token()}}',
+                name: 'mifu_user_public_key',
+                value: mifu_user_public_key
+            }, function (ret) {
+                layer.msg(ret.message, {time: 1000}, function () {
+                    if (ret.status == 'fail') {
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+
 
         // 设置f2fpay的应用id
         function setF2fpayAppId() {
