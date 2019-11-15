@@ -52,14 +52,14 @@
 @endsection
 @section('script')
     <script type="text/javascript">
-        // 每800毫秒查询一次订单状态
+        // 每4秒查询一次订单状态
         $(document).ready(function(){
             // 支付宝直接跳转支付
             @if(\App\Components\Helpers::systemConfig()['is_alipay'])
                 document.body.innerHTML += unescapeHTML("{{$payment->qr_code}}");
                 document.forms['alipaysubmit'].submit();
             @endif
-            setInterval("getStatus()", 800);
+            setInterval("getStatus()", 4000);
         });
 
         // 检查支付单状态

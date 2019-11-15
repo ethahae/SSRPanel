@@ -12,6 +12,7 @@ use App\Http\Models\Order;
 use App\Http\Models\Payment;
 use App\Http\Models\PaymentCallback;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Payment\Client\Charge;
 use Response;
 use Log;
@@ -130,6 +131,8 @@ class PaymentController extends Controller
                 $pay_way = 5;
             } elseif (self::$systemConfig['is_mifupay']){
                 $pay_way = 6;
+            } elseif (self::$systemConfig['is_hl5tpay']){
+                $pay_way = 7;
             }
 
             // 生成订单
@@ -197,13 +200,16 @@ class PaymentController extends Controller
                 $mifupay = new MifuSubmit(self::$systemConfig['mifu_user_public_key'],
                     self::$systemConfig['mifu_user_private_key'], self::$systemConfig['mifu_merchant_code'],
                     self::$systemConfig['mifu_agent_code'], $amount, $orderSn, Auth::user()->id,
-                    $request->ip(), self::$systemConfig['']);
+                    $request->ip(), self::$systemConfig['website_url'] . "/invoices", 
+                    self::$systemConfig['website_url'] . "/api/mifupay");
                 $req = $mifupay->build_json();
                 $result = $mifupay->get_response_by_curl($req);
                 if (Str::length($result) == 0){
                     Log::error("user:" . Auth::user()->id . ",sn:" . $sn . ", mifu response empty");
                     return Response::json(['status' => 'fail', 'data' => '', 'message' => '创建支付单失败：请联系管理员']);
                 }
+            } elseif (self::$systemConfig['is_hl5tpay']) {
+                
             }
 
             $payment = new Payment();
@@ -225,7 +231,8 @@ class PaymentController extends Controller
                 $payment->qr_url = 'http://qr.topscan.com/api.php?text=' . $result . '&bg=ffffff&fg=000000&pt=1c73bd&m=10&w=400&el=1&inpt=1eabfc&logo=https://t.alipayobjects.com/tfscom/T1Z5XfXdxmXXXXXXXX.png';
                 $payment->qr_local_url = $payment->qr_url;
             } elseif (self::$systemConfig['is_mifupay']) {
-                $payment->qr_local_url = $result;
+                $payment->qr_url = 'http://qr.topscan.com/api.php?text=' . $result . '&bg=ffffff&fg=000000&pt=1c73bd&m=10&w=400&el=1&inpt=1eabfc&logo=https://t.alipayobjects.com/tfscom/T1Z5XfXdxmXXXXXXXX.png';
+                $payment->qr_local_url = $payment->qr_url;
             }
             $payment->status = 0;
             $payment->save();

@@ -40,7 +40,7 @@ class MifuSubmit
      * @param amount 字符串 1.00 表示一元
      * @param pay_type ['alipay', 'wechat']
     */
-    function __construct($user_public_key, $user_private_key, $merchant_code, $agent_code, $amount, $order_id, $user_id, $pay_type = "alipay")
+    function __construct($user_public_key, $user_private_key, $merchant_code, $agent_code, $amount, $order_id, $user_id, $user_ip, $front_callback, $backend_callback, $pay_type = "alipay")
     {
 
       $user_public_key = str_replace("-----BEGIN PUBLIC KEY-----", "", $user_public_key);
@@ -61,7 +61,10 @@ class MifuSubmit
       $this->agent_code = $agent_code;
       $this->amount = $amount;
       $this->order_id = $order_id;
+      $this->user_ip = $user_ip;
       $this->user_id = $user_id;
+      $this->front_callback = $front_callback;
+      $this->backend_callback = $backend_callback;
       $this->pay_type = $pay_type;
     }
 
@@ -117,8 +120,8 @@ class MifuSubmit
       $post_data['merchantCode']  =   $this->merchant_code;
       $post_data['downOrderNum']  =   $this->order_id;
       $post_data['totalAmount']  =   $this->amount;
-      $post_data['channelCode']  =   'AX001';
-      $post_data['interfaceType']  =   'P001'; //p001, 扫码, p006 h5支付
+      $post_data['channelCode']  =   'A001';
+      $post_data['interfaceType']  =   'P006'; //p001, 扫码, p006 h5支付
       $post_data['uniqueUserId']  =   $this->user_id;
       $post_data['payType']  =   "T001";
       if ($this->pay_type == "wechat"){
@@ -135,7 +138,7 @@ class MifuSubmit
       $mpAeskey = Str::random(16);
       openssl_public_encrypt($mpAeskey, $encryptKey,$this->get_platform_public_key());
       $encryptKey = base64_encode($encryptKey);
-      $encryptData = $this->aes_encrypt($postjson,$mpAeskey,true);
+      $encryptData = $this->aes_encrypt($postjson,$mpAeskey);
       //签名加密，目前随意，网关不检查
       openssl_sign($postjson, $signvlue, $this->user_private_key);
       $signData = base64_encode($signvlue);
@@ -150,7 +153,7 @@ class MifuSubmit
       $post_info["signData"] = $signData;
       $req_data_json = json_encode($post_info,JSON_UNESCAPED_UNICODE);
       Log::Info("user:" . $this->user_id . ",json:" . $postjson);
-      Log::Info("user:" . $this->user_id . ",encrypt:" . $post_info);
+      Log::Info("user:" . $this->user_id . ",encrypt:" . json_encode($post_info));
       return $req_data_json;
     }
 
@@ -174,14 +177,14 @@ class MifuSubmit
       if (!$responseText){
           return "";
       } else {
-        Log::error("user:" . $this->user_id . ",mifu request fail");
+        Log::info("user:" . $this->user_id . ",order:" . $this->order_id . ",mifu request ok");
       }
       $replyvalue = json_decode($responseText, true, 512, JSON_BIGINT_AS_STRING);
       if (isset($replyvalue['encrtptKey'])) 
       {
           openssl_private_decrypt(base64_decode($replyvalue['encrtptKey']), $decryptedvalue, $this->user_private_key);
-          $result = json_decode($this->aes_decrypt($replyvalue['encryptData'], $decryptedvalue, true), true);  
-          Log::Info("user:" . $this->user_id . ",mifu_response_decode:" . $result);
+          $result = json_decode($this->aes_decrypt($replyvalue['encryptData'], $decryptedvalue), true);  
+          Log::Info("user:" . $this->user_id . ",mifu_response_decode:" . json_encode($result, JSON_UNESCAPED_UNICODE));
           if (isset($result['code']) && $result['code'] == 20000) 
           {
             if(isset($result["data"]["payUrl"]))
@@ -189,7 +192,7 @@ class MifuSubmit
                 return $result["data"]["payUrl"];
             }
           } else {
-            Log::error("user:" . $this->user_id . ",mifu code not 20000" . $result);
+            Log::error("user:" . $this->user_id . ",mifu code not 20000" . json_encode($result, JSON_UNESCAPED_UNICODE));
           }
       } else {
         Log::error("user:" . $this->user_id . ",mifu response do not have encrypt key");
