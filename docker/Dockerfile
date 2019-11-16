@@ -1,5 +1,5 @@
 FROM php:apache
-RUN apt-get update && apt-get install -y libzip-dev libpng-dev && docker-php-ext-install gd bcmath zip pdo pdo_mysql
+RUN apt-get update && apt-get install -y libzip-dev libpng-dev && docker-php-ext-install gd bcmath zip pdo pdo_mysql && apt-get clean
 RUN curl -fsSL https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
