@@ -154,8 +154,8 @@ return [
         Misechow\Geetest\GeetestServiceProvider::class,  // Geetest极验
         Misechow\NoCaptcha\NoCaptchaServiceProvider::class, // Google reCAPTCHA
         Overtrue\LaravelLang\TranslationServiceProvider::class, // 多国语言包功能
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class, // jwt auth
-        Telegram\Bot\Laravel\TelegramServiceProvider::class, // Telegram Bot
+        //Tymon\JWTAuth\Providers\LaravelServiceProvider::class, // jwt auth
+        //Telegram\Bot\Laravel\TelegramServiceProvider::class, // Telegram Bot
 
         /*
          * Application Service Providers...
