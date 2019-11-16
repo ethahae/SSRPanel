@@ -10,6 +10,8 @@ use App\Http\Models\SsConfig;
 use App\Http\Models\User;
 use App\Http\Models\UserSubscribe;
 use App\Http\Models\UserTrafficModifyLog;
+use Illuminate\Database\QueryException;
+use Log;
 
 class Helpers
 {
@@ -25,13 +27,17 @@ class Helpers
     // 获取系统配置
     public static function systemConfig()
     {
-        $config = Config::query()->get();
-        $data = [];
-        foreach ($config as $vo) {
-            $data[$vo->name] = $vo->value;
+        try {
+            $config = Config::query()->get();
+            $data = [];
+            foreach ($config as $vo) {
+                $data[$vo->name] = $vo->value;
+            }
+    
+            return $data;
+        } catch (QueryException $e){
+            Log::warn("no config load");
         }
-
-        return $data;
     }
 
     // 获取默认加密方式
