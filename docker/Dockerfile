@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y libzip-dev libpng-dev && \
   cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load && \
   mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY . /var/www/html
-RUN composer install && \
+RUN chown -R www-data:www-data /var/www/html composer install && \
   composer dumpautoload && \
   php artisan key:generate && \
   php artisan view:clear  && \
