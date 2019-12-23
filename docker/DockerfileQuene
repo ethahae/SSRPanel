@@ -1,0 +1,4 @@
+FROM ryanw4ng/web
+RUN apt-get update && \
+  apt-get install -y cron vim && echo "0 * * * * php /var/www/html artisan schedule:run > /var/www/html/storage/logs/schedule.log" >> /etc/crontab
+ENTRYPOINT [php artisan queue:work database --queue=default --timeout=60 --sleep=5 --tries=3 >> /var/www/html/storage/logs/queue.log 2>&1]
