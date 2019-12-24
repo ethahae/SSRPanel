@@ -1,2 +1,2 @@
 PATH="/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-0 * * * * root /root/env/usr/local/bin/php /var/www/html/artisan schedule:run >> /var/www/html/storage/logs/schedule.log 2>&1
+0 * * * * root /usr/local/bin/php /var/www/html/artisan schedule:run >> /var/www/html/storage/logs/schedule.log 2>&1
