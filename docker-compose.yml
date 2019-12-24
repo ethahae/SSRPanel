@@ -10,7 +10,7 @@ services:
         MYSQL_USER: ssrpanel
         MYSQL_PASSWORD: ${MYSQL_PASS}
   web:
-    image: ryanw4ng/web:latest
+    image: ryanw4ng/web
     ports: 
 			- "80:80"
     depends_on: db
@@ -19,12 +19,20 @@ services:
 			DB_USER: ssrpanel
       DB_PASSWORD: ${MYSQL_PASS}
   quene:
-    image: ryanw4ng/web:quene
+    image: ryanw4ng/web
     depends_on: db
     environment:
 			DB_HOST: db
 			DB_USER: ssrpanel
       DB_PASSWORD: ${MYSQL_PASS}
+    entrypoint: php artisan queue:work database --queue=default --timeout=60 --sleep=5 --tries=3
+  cron:
+    image: ryanw4ng/web
+    environment:
+			DB_HOST: db
+			DB_USER: ssrpanel
+      DB_PASSWORD: ${MYSQL_PASS}
+    entrypoint: cron -f
   ssgo:
     image: ryanw4ng/ssgo
     environment: 
