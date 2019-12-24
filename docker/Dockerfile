@@ -2,7 +2,7 @@ FROM php:apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN apt-get update && apt-get install -y --no-install-recommends libzip-dev libpng-dev cron && \
 docker-php-ext-install gd bcmath zip pdo pdo_mysql && apt-get clean && \
-rm -f /var/lib/apt/lists && \
+rm -rf /var/lib/apt/lists && \
 curl -fsSL https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && \
 sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
 sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
