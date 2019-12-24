@@ -19,3 +19,4 @@ php artisan key:generate && \
 php artisan view:clear  && \
 php artisan cache:clear && \
 chown -R www-data:www-data /var/www/html
+CMD ["/var/www/html/docker/start_server.sh"]
