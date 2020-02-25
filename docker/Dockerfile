@@ -12,7 +12,7 @@ mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY . /var/www/html
 RUN touch /var/log/cron.log && \
 cp .env.example .env && \
-crontab /var/www/html/docker/cronfile && \
+crontab -u www-data /var/www/html/docker/cronfile && \
 composer install && \
 composer dumpautoload && \
 php artisan key:generate && \
