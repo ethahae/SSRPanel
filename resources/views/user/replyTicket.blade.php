@@ -9,16 +9,16 @@
         <!-- BEGIN PAGE BASE CONTENT -->
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light portlet-fit bordered">
+                <div class="portlet green-steel portlet-fit box">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-question font-green"></i>
-                            <span class="caption-subject bold font-green uppercase"> {{$ticket->title}} </span>
+                            <i class="icon-question font-grey"></i>
+                            <span class="caption-subject bold font-grey uppercase"> {{$ticket->title}} </span>
                         </div>
                         <div class="actions">
                             @if($ticket->status != 2)
                                 <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#closeTicket"> 关闭 </a>
+                                    <a class="btn grey btn-outline sbold" data-toggle="modal" href="#closeTicket"> 关闭 </a>
                                 </div>
                             @endif
                         </div>

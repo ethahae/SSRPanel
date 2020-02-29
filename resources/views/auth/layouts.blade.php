@@ -19,7 +19,8 @@
     <link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="/assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="/assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
     @yield('css')
@@ -41,7 +42,7 @@
     <!-- END LOGO -->
     <!-- BEGIN LOGIN -->
     <div class="content">
-        <nav style="padding-bottom: 20px;text-align: center;">
+        <!-- <nav style="padding-bottom: 20px;text-align: center;">
             @if(app()->getLocale() == 'zh-CN')
                 <a href="{{url('lang', ['locale' => 'zh-tw'])}}">繁體中文</a>
                 <a href="{{url('lang', ['locale' => 'en'])}}">English</a>
@@ -69,7 +70,7 @@
                 <a href="{{url('lang', ['locale' => 'ko'])}}">한국어</a>
             @else
             @endif
-        </nav>
+        </nav> -->
         @yield('content')
     </div>
 

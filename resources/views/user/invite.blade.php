@@ -6,7 +6,7 @@
     <div class="page-content" style="padding-top:0;">
         <div class="row">
             <div class="col-md-12">
-                <div class="note note-info">
+                <div class="note note-success">
                     <p>{{trans('home.promote_invite_code', ['traffic' => $referral_traffic, 'referral_percent' => $referral_percent * 100])}}</p>
                 </div>
             </div>
@@ -15,31 +15,32 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="tab-pane active">
-                    <div class="portlet light bordered">
+                    <div class="portlet green-steel box">
                         <div class="portlet-title">
                             <div class="caption">
-                                <span class="caption-subject font-dark bold">{{trans('home.invite_code_make')}}</span>
+                                <span class="caption-subject font-grey bold">{{trans('home.invite_code_make')}}</span>
                             </div>
                         </div>
-                        <div class="portlet-body">
-                            <div class="alert alert-info">
+                        <div class="portlet-body" style="display: block;">
+                            <div class="note note-success">
                                 <i class="fa fa-warning"></i>
                                 {{trans('home.invite_code_tips1')}} <strong> {{$num}} </strong> {{trans('home.invite_code_tips2', ['days' => \App\Components\Helpers::systemConfig()['user_invite_days']])}}
                             </div>
-                            <button type="button" class="btn blue" onclick="makeInvite()" @if(!$num) disabled @endif> {{trans('home.invite_code_button')}} </button>
+                            
+                            <button type="button" class="btn green-steel" onclick="makeInvite()" @if(!$num) disabled @endif> {{trans('home.invite_code_button')}} </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="tab-pane active">
-                    <div class="portlet light bordered">
+                    <div class="portlet green-steel box">
                         <div class="portlet-title">
                             <div class="caption">
-                                <span class="caption-subject font-dark bold">{{trans('home.invite_code_my_codes')}}</span>
+                                <span class="caption-subject font-grey bold">{{trans('home.invite_code_my_codes')}}</span>
                             </div>
                         </div>
-                        <div class="portlet-body">
+                        <div class="portlet-body" style="display: block;">
                             <div class="table-scrollable table-scrollable-borderless">
                                 <table class="table table-hover table-light table-checkable order-column">
                                     <thead>

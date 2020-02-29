@@ -13,6 +13,10 @@ return [
     'download'                        => 'Download',
 
     // 菜单
+    'dashboard'                       => 'Dashboard',
+    'nodelist'                        => 'Node List',
+    'service_dash'                    => 'Service',
+    'other'                           => 'Other',
     'home'                            => 'Home',
     'my_service'                      => 'My Services',
     'services'                        => 'Services',

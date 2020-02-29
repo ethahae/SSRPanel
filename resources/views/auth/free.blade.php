@@ -62,10 +62,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tab-pane active">
-                        <div class="portlet light bordered">
+                        <div class="portlet green-steel box">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <span class="caption-subject font-dark bold">{{trans('home.free_invite_codes_title')}}</span>
+                                    <span class="caption-subject font-grey bold">{{trans('home.free_invite_codes_title')}}</span>
                                 </div>
                             </div>
                             <div class="portlet-body">

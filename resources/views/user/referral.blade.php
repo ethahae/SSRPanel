@@ -7,24 +7,24 @@
         <!-- BEGIN PAGE BASE CONTENT -->
         <div class="row">
             <div class="col-md-12">
-                <div class="note note-info">
+                <div class="note note-success">
                     <p>{{trans('home.promote_link', ['traffic' => $referral_traffic, 'referral_percent' => $referral_percent * 100])}}</p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light form-fit bordered">
+                <div class="portlet green-steel box">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-link font-blue"></i>
-                            <span class="caption-subject font-blue bold">{{trans('home.referral_my_link')}}</span>
+                            <i class="icon-link font-grey"></i>
+                            <span class="caption-subject font-greys bold">{{trans('home.referral_my_link')}}</span>
                         </div>
                     </div>
                     <div class="portlet-body form">
                         <div class="mt-clipboard-container">
                             <input type="text" id="mt-target-1" class="form-control" value="{{$link}}" />
-                            <a href="javascript:;" class="btn blue mt-clipboard" data-clipboard-action="copy" data-clipboard-target="#mt-target-1">
+                            <a href="javascript:;" class="btn green-steel mt-clipboard" data-clipboard-action="copy" data-clipboard-target="#mt-target-1">
                                 <i class="icon-note"></i> {{trans('home.referral_button')}}
                             </a>
                         </div>
@@ -32,9 +32,9 @@
                 </div>
 
                 <!-- 邀请记录 -->
-                <div class="portlet light bordered">
+                <div class="portlet green-steel box">
                     <div class="portlet-title">
-                        <div class="caption font-dark">
+                        <div class="caption font-grey">
                             <span class="caption-subject bold"> {{trans('home.invite_user_title')}} </span>
                         </div>
                     </div>
@@ -76,13 +76,13 @@
                 </div>
 
                 <!-- 推广记录 -->
-                <div class="portlet light bordered">
+                <div class="portlet green-steel box">
                     <div class="portlet-title">
-                        <div class="caption font-dark">
+                        <div class="caption font-grey">
                             <span class="caption-subject bold"> {{trans('home.referral_title')}} </span>
                         </div>
                         <div class="actions">
-                            <button type="submit" class="btn red" onclick="extractMoney()"> {{trans('home.referral_table_apply')}} </button>
+                            <button type="submit" class="btn green-steel" onclick="extractMoney()"> {{trans('home.referral_table_apply')}} </button>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -140,9 +140,9 @@
                 </div>
 
                 <!-- 提现记录 -->
-                <div class="portlet light bordered">
+                <div class="portlet green-steel box">
                     <div class="portlet-title">
-                        <div class="caption font-dark">
+                        <div class="caption font-grey">
                             <span class="caption-subject bold"> {{trans('home.referral_apply_title')}} </span>
                         </div>
                     </div>

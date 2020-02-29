@@ -7,10 +7,10 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN PORTLET -->
-                <div class="portlet light bordered">
+                <div class="portlet green-steel box">
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
-                            <i class="icon-directions font-green hide"></i>
+                            <i class="icon-directions font-grey hide"></i>
                             <span class="caption-subject bold font-dark uppercase"> {{$info->title}} </span>
                         </div>
                     </div>

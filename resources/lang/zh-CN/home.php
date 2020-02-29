@@ -13,6 +13,11 @@ return [
     'download'                        => '下载',
 
     // 菜单
+    'dashboard'                       => '仪表盘',
+    'nodelist'                        => '节点列表',
+    'service_dash'                    => '服务',
+    'other'                           => '其他',
+    'service_status'                  => '服务状态',
     'home'                            => '个人中心',
     'my_service'                      => '我的服务',
     'services'                        => '购买服务',
@@ -69,6 +74,7 @@ return [
     'error'                           => '错误',
     'online_pay'                      => '在线支付',
     'pay'                             => '支付',
+    'return_home'                     => '返回主页',
 
     // 用户资料
     'submit'                          => '提 交',
@@ -77,6 +83,7 @@ return [
     'password'                        => '用户密码',
     'new_password'                    => '新密码',
     'current_password'                => '现有的密码',
+    "password_need_strong"            => '请使用强壮的密码',
     'wechat'                          => '微信',
     'connection_password'             => '连接密码',
     'encrpytion'                      => '加密方式',

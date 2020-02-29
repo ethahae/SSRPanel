@@ -1,7 +1,6 @@
 @extends('auth.layouts')
 @section('title', trans('register.title'))
 @section('css')
-    <link href="/assets/pages/css/login-2.min.css" rel="stylesheet" type="text/css" />
     <style>
         @media screen and (max-height: 575px){  
             .g-recaptcha {
@@ -25,6 +24,7 @@
                     <span> {{$errors->first()}} </span>
                 </div>
             @endif
+            <h3 class="form-title font-green-steel">{{trans('register.title')}}</h3>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9">{{trans('register.username')}}</label>
                 <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="{{trans('register.username_placeholder')}}" name="username" id="username" value="{{Request::old('username')}}" required />
@@ -86,7 +86,7 @@
                 <label class="mt-checkbox mt-checkbox-outline">
                     <input type="checkbox" name="tnc" checked disabled /> {{trans('register.tnc_button')}}
                     <a href="javascript:showTnc();"> {{trans('register.tnc_link')}} </a>
-                    <span></span>
+                    <span></span>   
                 </label>
             </div>
         @else
@@ -95,9 +95,9 @@
             </div>
         @endif
         <div class="form-actions">
-            <button type="button" class="btn btn-default" onclick="login()">{{trans('register.back')}}</button>
+            <button type="button" class="btn btn-danger" onclick="login()">{{trans('register.back')}}</button>
             @if(\App\Components\Helpers::systemConfig()['is_register'])
-                <button type="submit" class="btn red uppercase pull-right">{{trans('register.submit')}}</button>
+                <button type="submit" class="btn green-steel uppercase pull-right">{{trans('register.submit')}}</button>
             @endif
         </div>
     </form>

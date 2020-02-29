@@ -31,14 +31,21 @@
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" /> </head>
 <!-- END HEAD -->
 
-<body class="page-404-3">
-    <div class="page-inner">
-        <img src="/assets/pages/media/pages/earth.jpg" class="img-responsive" alt="">
+<body class="page-500-full-page">
+    <div class="row">
+        <div class="col-md-12 page-500">
+            <div class="number font-red"> Ops </div>
+            <div class="details">
+                <h2>ACCESS DENIED</h2>
+                <p>{!! $message !!}</p>
+                <p>
+                    <a href="/" class="btn red btn-outline">{{trans('home.return_home')}}</a>
+                    <br>
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="container error-404">
-        <h2>ACCESS DENIED</h2>
-        <p>{!! $message !!}</p>
-    </div>
+
     <!--[if lt IE 9]>
     <script src="/assets/global/plugins/respond.min.js"></script>
     <script src="/assets/global/plugins/excanvas.min.js"></script>

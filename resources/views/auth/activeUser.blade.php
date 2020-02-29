@@ -1,7 +1,7 @@
 @extends('auth.layouts')
 @section('title', trans('active.title'))
 @section('css')
-    <link href="/assets/pages/css/login-2.min.css" rel="stylesheet" type="text/css" />
+    
 @endsection
 @section('content')
     @if (Session::get('successMsg'))
@@ -18,9 +18,7 @@
     <!-- BEGIN FORGOT PASSWORD FORM -->
     <form class="forget-form" action="/activeUser" method="post" style="display: block;">
         @if(\App\Components\Helpers::systemConfig()['is_active_register'])
-            <div class="form-title">
-                <span class="form-title">{{trans('active.title')}}</span>
-            </div>
+            <h3 class="form-title font-green-steel">{{trans('active.title')}}</h3>
             <div class="form-group">
                 <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="{{trans('active.username_placeholder')}}" name="username" value="{{Request::get('username')}}" required />
                 <input type="hidden" name="_token" value="{{csrf_token()}}" />
@@ -31,9 +29,9 @@
             </div>
         @endif
         <div class="form-actions">
-            <button type="button" class="btn btn-default" onclick="login()">{{trans('active.back')}}</button>
+            <button type="button" class="btn btn-danger" onclick="login()">{{trans('active.back')}}</button>
             @if(\App\Components\Helpers::systemConfig()['is_active_register'])
-                <button type="submit" class="btn red uppercase pull-right">{{trans('active.submit')}}</button>
+                <button type="submit" class="btn green-steel uppercase pull-right">{{trans('active.submit')}}</button>
             @endif
         </div>
     </form>

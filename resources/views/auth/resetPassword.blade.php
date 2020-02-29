@@ -1,7 +1,7 @@
 @extends('auth.layouts')
 @section('title', trans('home.reset_password_title'))
 @section('css')
-    <link href="/assets/pages/css/login-2.min.css" rel="stylesheet" type="text/css" />
+    
 @endsection
 @section('content')
     @if (Session::get('successMsg'))
@@ -16,9 +16,7 @@
     @endif
     <form class="forget-form" action="/resetPassword" method="post" style="display: block;">
         @if(\App\Components\Helpers::systemConfig()['is_reset_password'])
-            <div class="form-title">
-                <span class="form-title">{{trans('home.reset_password_title')}}</span>
-            </div>
+            <h3 class="form-title font-green-steel">{{trans('home.reset_password_title')}}</h3>
             <div class="form-group">
                 <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="{{trans('home.username_placeholder')}}" name="username" value="{{Request::old('username')}}" required autofocus />
                 <input type="hidden" name="_token" value="{{csrf_token()}}" />
@@ -29,9 +27,9 @@
             </div>
         @endif
         <div class="form-actions">
-            <button type="button" class="btn btn-default" onclick="login()">{{trans('register.back')}}</button>
+            <button type="button" class="btn btn-danger" onclick="login()">{{trans('register.back')}}</button>
             @if(\App\Components\Helpers::systemConfig()['is_reset_password'])
-                <button type="submit" class="btn red uppercase pull-right">{{trans('register.submit')}}</button>
+                <button type="submit" class="btn green-steel uppercase pull-right">{{trans('register.submit')}}</button>
             @endif
         </div>
     </form>

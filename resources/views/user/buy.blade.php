@@ -5,92 +5,100 @@
 @section('content')
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content" style="padding-top:0;">
-        <!-- BEGIN PAGE BASE CONTENT -->
-        <div class="invoice-content-2 bordered">
-            <div class="row invoice-body">
-                <div class="col-xs-12 table-responsive">
-                    <table class="table table-hover">
-                        @if($goods->type == 3)
-                            <thead>
-                                <tr>
-                                    <th class="invoice-title"> {{trans('home.service_name')}} </th>
-                                    <th class="invoice-title text-center"> {{trans('home.service_price')}} </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="padding: 10px;">
-                                        <h2>{{$goods->name}}</h2>
-                                        充值金额：{{$goods->price}}元
+        <div class="portlet green-steel box">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cny"></i>
+                    <span class="caption-subject font-grey bold">订单</span>
+                </div>
+            </div>
+            <!-- BEGIN PAGE BASE CONTENT -->
+            <div class="invoice-content-2 bordered">
+                <div class="row invoice-body">
+                    <div class="col-xs-12 table-responsive">
+                        <table class="table table-hover">
+                            @if($goods->type == 3)
+                                <thead>
+                                    <tr>
+                                        <th class="invoice-title"> {{trans('home.service_name')}} </th>
+                                        <th class="invoice-title text-center"> {{trans('home.service_price')}} </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px;">
+                                            <h2>{{$goods->name}}</h2>
+                                            充值金额：{{$goods->price}}元
+                                            </td>
+                                        <td class="text-center"> ￥{{$goods->price}} </td>
+                                    </tr>
+                                </tbody>
+                            @else
+                                <thead>
+                                    <tr>
+                                        <th class="invoice-title"> {{trans('home.service_name')}} </th>
+                                        <th class="invoice-title text-center"> {{trans('home.service_price')}} </th>
+                                        <th class="invoice-title text-center"> {{trans('home.service_quantity')}} </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px;">
+                                            <h2>{{$goods->name}}</h2>
+                                            {{trans('home.service_traffic')}} {{$goods->traffic_label}}
+                                            <br/>
+                                            {{trans('home.service_days')}} {{$goods->days}} {{trans('home.day')}}
                                         </td>
-                                    <td class="text-center"> ￥{{$goods->price}} </td>
-                                </tr>
-                            </tbody>
-                        @else
-                            <thead>
-                                <tr>
-                                    <th class="invoice-title"> {{trans('home.service_name')}} </th>
-                                    <th class="invoice-title text-center"> {{trans('home.service_price')}} </th>
-                                    <th class="invoice-title text-center"> {{trans('home.service_quantity')}} </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="padding: 10px;">
-                                        <h2>{{$goods->name}}</h2>
-                                        {{trans('home.service_traffic')}} {{$goods->traffic_label}}
-                                        <br/>
-                                        {{trans('home.service_days')}} {{$goods->days}} {{trans('home.day')}}
-                                    </td>
-                                    <td class="text-center"> ￥{{$goods->price}} </td>
-                                    <td class="text-center"> x 1 </td>
-                                </tr>
-                            </tbody>
-                      	@endif
-                    </table>
+                                        <td class="text-center"> ￥{{$goods->price}} </td>
+                                        <td class="text-center"> x 1 </td>
+                                    </tr>
+                                </tbody>
+                            @endif
+                        </table>
+                    </div>
+                </div>
+                @if($goods->type <= 2)
+                    <div class="row invoice-subtotal">
+                        <div class="col-xs-3">
+                            <h2 class="invoice-title"> {{trans('home.service_subtotal_price')}} </h2>
+                            <p class="invoice-desc"> ￥{{$goods->price}} </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h2 class="invoice-title"> {{trans('home.service_total_price')}} </h2>
+                            <p class="invoice-desc grand-total"> ￥{{$goods->price}} </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <h2 class="invoice-title"> {{trans('home.coupon')}} </h2>
+                            <p class="invoice-desc">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="coupon_sn" id="coupon_sn" placeholder="{{trans('home.coupon')}}" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="redeemCoupon()"><i class="fa fa-refresh"></i> {{trans('home.redeem_coupon')}} </button>
+                                    </span>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                @endif
+                <div class="row">
+                    <div class="col-xs-12" style="text-align: right;">
+                        @if(\App\Components\Helpers::systemConfig()['is_youzan'])
+                            <a class="btn btn-lg red hidden-print" onclick="onlinePay(0)"> {{trans('home.online_pay')}} </a>
+                        @elseif(\App\Components\Helpers::systemConfig()['is_alipay'])
+                            <a class="btn btn-lg green hidden-print" onclick="onlinePay(4)"> 支付宝扫码 </a>
+                        @elseif(\App\Components\Helpers::systemConfig()['is_f2fpay'])
+                            <a class="btn btn-lg green hidden-print" onclick="onlinePay(5)"> 支付宝扫码 </a>
+                        @elseif(\App\Components\Helpers::systemConfig()['is_mifupay'])
+                            <a class="btn btn-lg green hidden-print" onclick="onlinePay(6)"> 扫码支付 </a>
+                        @endif
+                        @if($goods->type <= 2)
+                            <a class="btn btn-lg blue hidden-print uppercase" onclick="pay()"> {{trans('home.service_pay_button')}} </a>
+                        @endif
+                    </div>
                 </div>
             </div>
-            @if($goods->type <= 2)
-                <div class="row invoice-subtotal">
-                    <div class="col-xs-3">
-                        <h2 class="invoice-title"> {{trans('home.service_subtotal_price')}} </h2>
-                        <p class="invoice-desc"> ￥{{$goods->price}} </p>
-                    </div>
-                    <div class="col-xs-3">
-                        <h2 class="invoice-title"> {{trans('home.service_total_price')}} </h2>
-                        <p class="invoice-desc grand-total"> ￥{{$goods->price}} </p>
-                    </div>
-                    <div class="col-xs-6">
-                        <h2 class="invoice-title"> {{trans('home.coupon')}} </h2>
-                        <p class="invoice-desc">
-                            <div class="input-group">
-                                <input class="form-control" type="text" name="coupon_sn" id="coupon_sn" placeholder="{{trans('home.coupon')}}" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" onclick="redeemCoupon()"><i class="fa fa-refresh"></i> {{trans('home.redeem_coupon')}} </button>
-                                </span>
-                            </div>
-                        </p>
-                    </div>
-                </div>
-            @endif
-            <div class="row">
-                <div class="col-xs-12" style="text-align: right;">
-                    @if(\App\Components\Helpers::systemConfig()['is_youzan'])
-                        <a class="btn btn-lg red hidden-print" onclick="onlinePay(0)"> {{trans('home.online_pay')}} </a>
-                    @elseif(\App\Components\Helpers::systemConfig()['is_alipay'])
-                        <a class="btn btn-lg green hidden-print" onclick="onlinePay(4)"> 支付宝扫码 </a>
-                    @elseif(\App\Components\Helpers::systemConfig()['is_f2fpay'])
-                        <a class="btn btn-lg green hidden-print" onclick="onlinePay(5)"> 支付宝扫码 </a>
-                    @elseif(\App\Components\Helpers::systemConfig()['is_mifupay'])
-                        <a class="btn btn-lg green hidden-print" onclick="onlinePay(6)"> 扫码支付 </a>
-                    @endif
-                  	@if($goods->type <= 2)
-                        <a class="btn btn-lg blue hidden-print uppercase" onclick="pay()"> {{trans('home.service_pay_button')}} </a>
-                  	@endif
-                </div>
-            </div>
+            <!-- END PAGE BASE CONTENT -->
         </div>
-        <!-- END PAGE BASE CONTENT -->
     </div>
     <!-- END CONTENT BODY -->
 @endsection

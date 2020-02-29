@@ -1,7 +1,6 @@
 @extends('auth.layouts')
 @section('title', trans('login.title'))
 @section('css')
-    <link href="/assets/pages/css/login-2.min.css" rel="stylesheet" type="text/css" />
     <style>
         @media screen and (max-height: 575px){  
             .g-recaptcha {
@@ -24,6 +23,7 @@
                 <span> {!! $errors->first() !!} </span>
             </div>
         @endif
+        <h3 class="form-title font-green-steel">{{trans('login.title')}}</h3>
         @if (Session::get('regSuccessMsg'))
             <div class="alert alert-success">
                 <button class="close" data-close="alert"></button>
@@ -64,23 +64,18 @@
             @default
         @endswitch
         <div class="form-actions">
-            <div class="pull-left">
-                <label class="rememberme mt-checkbox mt-checkbox-outline">
-                    <input type="checkbox" name="remember" value="1"> {{trans('login.remember')}}
-                    <span></span>
-                </label>
-            </div>
-            <div class="pull-right forget-password-block">
-                <a href="/resetPassword" class="forget-password">{{trans('login.forget_password')}}</a>
-            </div>
+            <button type="submit" class="btn green-steel uppercase">{{trans('login.login')}}</button>
+            <label class="rememberme mt-checkbox mt-checkbox-outline">
+                <input type="checkbox" name="remember" value="1"> {{trans('login.remember')}}
+                <span></span>
+            </label> 
+            <a href="/resetPassword" class="forget-password">{{trans('login.forget_password')}}</a>
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn red btn-block uppercase">{{trans('login.login')}}</button>
-        </div>
+
         @if(\App\Components\Helpers::systemConfig()['is_register'])
             <div class="create-account">
                 <p>
-                    <a href="/register" class="btn-primary btn">{{trans('login.register')}}</a>
+                    <a href="/register" class="register-btn">{{trans('login.register')}}</a>
                 </p>
             </div>
         @endif

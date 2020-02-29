@@ -8,10 +8,10 @@
         <div class="search-page search-content-1">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet light">
+                    <div class="portlet green-steel box">
                         <div class="portlet-title">
                             <div class="caption">
-                                <span class="caption-subject font-dark bold">{{trans('home.help')}}</span>
+                                <span class="caption-subject font-grey bold">{{trans('home.help')}}</span>
                             </div>
                         </div>
                         <div class="portlet-body">

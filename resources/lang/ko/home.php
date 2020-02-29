@@ -13,6 +13,10 @@ return [
     'download'                        => '다운로드',
 
     // 菜单
+    'dashboard'                       => '계기반',
+    'nodelist'                        => '노드리스트',
+    'service_dash'                    => '서비스',
+    'other'                           => '다른',
     'home'                            => '개인 센터',
     'my_service'                      => '나의 서비스',
     'services'                        => '서버구축',

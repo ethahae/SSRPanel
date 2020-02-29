@@ -14,23 +14,28 @@
     <div class="page-content" style="padding-top:0;">
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light">
+                <div class="portlet green-steel box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject font-grey bold">账户情况</span>
+                        </div>
+                    </div>
                     <div class="portlet-body">
                         <ul class="list-inline">
                             <li>
                                 <h4>
-                                    <span class="font-blue">账户等级：</span>
-                                    <span class="font-red">{{Auth::user()->levelList->level_name}}</span>
+                                    <span class="font-green-steel">账户等级：</span>
+                                    <span class="font-blue-steel">{{Auth::user()->levelList->level_name}}</span>
                                 </h4>
                             </li>
                             <li>
                                 <h4>
-                                    <span class="font-blue">账户余额：</span>
-                                    <span class="font-red">{{Auth::user()->balance}}元</span>
+                                    <span class="font-green-steel">账户余额：</span>
+                                    <span class="font-blue-steel">{{Auth::user()->balance}}元</span>
                                 </h4>
                             </li>
                             <li>
-                                <a class="btn btn-sm red" href="#" data-toggle="modal" data-target="#charge_modal" style="color: #FFF;">{{trans('home.recharge')}}</a>
+                                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#charge_modal" style="color: #FFF;">{{trans('home.recharge')}}</a>
                             </li>
                         </ul>
                     </div>
@@ -40,10 +45,15 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light">
-                    <div class="portlet light">
-                        <div class="tabbable-line">
-                            <ul class="nav nav-tabs">
+                <div class="portlet green-steel box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject font-grey bold"></span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tabbable">
+                            <ul class="nav nav-pills">
                                 <li class="active">
                                     <a href="#services1" data-toggle="tab"> <i class="fa fa-book"></i> 说明 </a>
                                 </li>
@@ -219,8 +229,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">{{trans('home.close')}}</button>
-                        <button type="button" class="btn red btn-outline" onclick="return charge();">{{trans('home.recharge')}}</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-danger">{{trans('home.close')}}</button>
+                        <button type="button" class="btn btn-primary" onclick="return charge();">{{trans('home.recharge')}}</button>
                     </div>
                 </div>
             </div>

@@ -23,41 +23,45 @@
                 <div class="profile-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="portlet light bordered">
+                            <div class="portlet green-steel box">
                                 <div class="portlet-title tabbable-line">
                                     <div class="caption caption-md">
                                         <i class="icon-globe theme-font hide"></i>
-                                        <span class="caption-subject font-blue-madison bold uppercase">{{trans('home.profile')}}</span>
+                                        <span class="caption-subject font-grey bold uppercase">{{trans('home.profile')}}</span>
                                     </div>
                                     <ul class="nav nav-tabs">
-                                        <li class="active">
-                                            <a href="#tab_1" data-toggle="tab">{{trans('home.password')}}</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_2" data-toggle="tab">{{trans('home.contact')}}</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_3" data-toggle="tab">{{trans('home.ssr_setting')}}</a>
-                                        </li>
-                                    </ul>
+                                            <li class="active">
+                                                <a href="#tab_1" data-toggle="tab">{{trans('home.password')}}</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab_2" data-toggle="tab">{{trans('home.contact')}}</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab_3" data-toggle="tab">{{trans('home.ssr_setting')}}</a>
+                                            </li>
+                                        </ul>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="tab-content">
+                                        
                                         <div class="tab-pane active" id="tab_1">
                                             <form action="{{url('profile')}}" method="post" enctype="multipart/form-data" class="form-bordered">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{trans('home.current_password')}}</label>
-                                                    <input type="password" class="form-control" name="old_password" id="old_password" autofocus required />
-                                                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                                <div></div>
+                                                <div class="form-group form-md-line-input">
+                                                    <input type="password" class="form-control" name="old_password" id="old_password" required >
+                                                    <label for="old_password">{{trans('home.current_password')}}</label>
+                                                    <input type="hidden" name="_token" value="{{csrf_token()}}" >
+                                                    <span class="help-block ">{{trans('home.current_password')}}</span>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">{{trans('home.new_password')}}</label>
-                                                    <input type="password" class="form-control" name="new_password" id="new_password" required />
+                                                <div class="form-group form-md-line-input">                                                    
+                                                    <input type="password" class="form-control" name="new_password" id="new_password" required >
+                                                    <label for="new_password">{{trans('home.new_password')}}</label>
+                                                    <span class="help-block ">{{trans('home.password_need_strong')}}</span>
                                                 </div>
                                                 <div class="form-actions">
                                                     <div class="row">
                                                         <div class=" col-md-4">
-                                                            <button type="submit" class="btn green">{{trans('home.submit')}}</button>
+                                                            <button type="submit" class="btn green-steel">{{trans('home.submit')}}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -65,19 +69,21 @@
                                         </div>
                                         <div class="tab-pane" id="tab_2">
                                             <form action="{{url('profile')}}" method="post" enctype="multipart/form-data" class="form-bordered">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{trans('home.wechat')}}</label>
-                                                    <input type="text" class="form-control" name="wechat" value="{{Auth::user()->wechat}}" id="wechat" required />
+                                                <div class="form-group form-md-line-input">
+                                                    <input type="text" class="form-control form-md-line-input" name="wechat" value="{{Auth::user()->wechat}}" id="wechat" required />
+                                                    <label for="wechat">{{trans('home.wechat')}}</label>
                                                     <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                                    <span class="help-block">{{trans('home.wechat')}}</span>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="control-label"> QQ </label>
-                                                    <input type="text" class="form-control" name="qq" value="{{Auth::user()->qq}}" id="qq" required />
+                                                <div class="form-group form-md-line-input">
+                                                    <input type="text" class="form-control form-md-line-input" name="qq" value="{{Auth::user()->qq}}" id="qq" required/>
+                                                    <label for="wechat">QQ</label>
+                                                    <span class="help-block">QQ</span>
                                                 </div>
                                                 <div class="form-actions">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <button type="submit" class="btn green">{{trans('home.submit')}}</button>
+                                                            <button type="submit" class="btn green-steel">{{trans('home.submit')}}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -85,15 +91,16 @@
                                         </div>
                                         <div class="tab-pane" id="tab_3">
                                             <form action="{{url('profile')}}" method="post" enctype="multipart/form-data" class="form-bordered">
-                                                <div class="form-group">
-                                                    <label class="control-label"> {{trans('home.connection_password')}} </label>
-                                                    <input type="text" class="form-control" name="passwd" value="{{Auth::user()->passwd}}" id="passwd" required />
+                                                <div class="form-group form-md-line-input">
+                                                    <input type="text" class="form-control form-md-line-input" name="passwd" value="{{Auth::user()->passwd}}" id="passwd" required  />
                                                     <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                                    <label for="passwd">{{trans('home.connection_password')}}</label>
+                                                    <span class="help-block">{{trans('home.connection_password')}}</span>
                                                 </div>
                                                 <div class="form-actions">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <button type="submit" class="btn green"> {{trans('home.submit')}} </button>
+                                                            <button type="submit" class="btn green-steel"> {{trans('home.submit')}} </button>
                                                         </div>
                                                     </div>
                                                 </div>

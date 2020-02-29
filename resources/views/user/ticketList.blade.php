@@ -10,20 +10,20 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                <div class="portlet light bordered">
+                <div class="portlet green-steel box">
                     <div class="portlet-title">
-                        <div class="caption font-dark">
+                        <div class="caption font-grey">
                             <span class="caption-subject bold"> {{trans('home.ticket_title')}} </span>
                         </div>
                         <div class="actions">
                             <div class="btn-group">
-                                <button class="btn sbold blue" data-toggle="modal" data-target="#charge_modal"> {{trans('home.ticket_table_new_button')}} </button>
+                                <button class="btn green-steel" data-toggle="modal" data-target="#charge_modal"> {{trans('home.ticket_table_new_button')}} </button>
                             </div>
                         </div>
                     </div>
-                    <div class="portlet-body">
-                        <div class="table-scrollable table-scrollable-borderless">
-                            <table class="table table-hover table-light table-checkable order-column">
+                    <div class="portlet-body" style="dislpay: block;">
+                        <div class="table-scrollables">
+                            <table class="table table-bordered table-striped table-condensed flip-content order-column">
                                 <thead>
                                     <tr>
                                         <th> # </th>
@@ -43,7 +43,7 @@
                                             <td> <a href="{{url('replyTicket?id=') . $ticket->id}}" target="_blank">{{$ticket->title}}</a> </td>
                                             <td>
                                                 @if ($ticket->status == 0)
-                                                    <span class="label label-info"> {{trans('home.ticket_table_status_wait')}} </span>
+                                                    <span class="label label-success"> {{trans('home.ticket_table_status_wait')}} </span>
                                                 @elseif ($ticket->status == 1)
                                                     <span class="label label-danger"> {{trans('home.ticket_table_status_reply')}} </span>
                                                 @else
@@ -80,8 +80,8 @@
                         <textarea name="content" id="content" placeholder="{{trans('home.ticket_table_new_desc')}}" class="form-control margin-bottom-20" rows="4"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn dark btn-outline"> {{trans('home.ticket_table_new_cancel')}} </button>
-                        <button type="button" data-dismiss="modal" class="btn green btn-outline" onclick="addTicket()"> {{trans('home.ticket_table_new_yes')}} </button>
+                        <button type="button" data-dismiss="modal" class="btn btn-danger"> {{trans('home.ticket_table_new_cancel')}} </button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="addTicket()"> {{trans('home.ticket_table_new_yes')}} </button>
                     </div>
                 </div>
             </div>

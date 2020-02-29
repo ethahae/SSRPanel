@@ -13,6 +13,10 @@ return [
     'download'                        => 'ダウンロード',
 
     // 菜单
+    'dashboard'                       => 'ダッシュボード',
+    'nodelist'                        => 'ノードリスト',
+    'service_dash'                    => 'サービス',
+    'other'                           => 'その他',
     'home'                            => 'パーソナルセンター',
     'my_service'                      => '私のサービス',
     'services'                        => 'ショップ',

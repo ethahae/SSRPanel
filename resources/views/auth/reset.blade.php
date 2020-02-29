@@ -1,7 +1,7 @@
 @extends('auth.layouts')
 @section('title', trans('home.reset_password_title'))
 @section('css')
-    <link href="/assets/pages/css/login-2.min.css" rel="stylesheet" type="text/css" />
+    
 @endsection
 @section('content')
     <!-- BEGIN REGISTRATION FORM -->
@@ -21,9 +21,7 @@
                 <span> 该链接已失效 </span>
             </div>
         @else
-            <div class="form-title">
-                <span class="form-title">设置新密码</span>
-            </div>
+            <h3 class="form-title font-green-steel">设置新密码</h3>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9">密码</label>
                 <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" value="" required />
@@ -35,9 +33,9 @@
             </div>
         @endif
         <div class="form-actions">
-            <button type="button" class="btn btn-default" onclick="login()">返 回</button>
+            <button type="button" class="btn btn-danger" onclick="login()">返 回</button>
             @if ($verify->status == 0)
-                <button type="submit" class="btn red uppercase pull-right">提 交</button>
+                <button type="submit" class="btn green-steel uppercase pull-right">提 交</button>
             @endif
         </div>
     </form>

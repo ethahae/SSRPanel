@@ -8,27 +8,39 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-title tabbable-line">
+                <div class="portlet green-steel box">
+                    <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-directions font-green hide"></i>
-                            <span class="caption-subject font-blue bold"> {{trans('home.announcement')}} </span>
+                            <i class="fa fa-gift"></i>
+                            {{trans('home.announcement')}}
                         </div>
-                        <div class="actions">
+                        <!-- <div class="actions">
                             <span class="caption-subject">
-                                <a class="btn btn-sm blue" href="javascript:checkIn();"> 签到 </a>
+                                <a class="btn btn-sm default" href="javascript:checkIn();"> 签到 </a>
                             </span>
+                        </div> -->
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
                         </div>
                     </div>
-                    <div class="portlet-body">
+                    <div class="portlet-body" style="display: block;">
                         <div class="tab-content">
+                            <div class="row">
                             @if($notice)
+                                <div style="margin: 20px">
                                 {!!$notice->content!!}
-                            @else
-                                <div style="text-align: center;">
-                                    <h3>暂无公告</h3>
                                 </div>
+                            @else
+                            <div style="text-align: center;">
+                                <h3>暂无公告</h3>
+                            </div>
                             @endif
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <a class="btn btn-sm green-steel" href="javascript:checkIn();"> 签到 </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -37,15 +49,25 @@
 
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body">
+                <div class="portlet green-steel box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span>{{trans('home.traffic_log_24hours')}}</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="display: block;">
                         <div id="chart2" style="width: auto;height:450px;"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body">
+                <div class="portlet green-steel box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span>{{trans('home.traffic_log_30days')}}</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="display: block;">
                         <div id="chart1" style="width: auto;height:450px;"></div>
                     </div>
                 </div>
@@ -76,12 +98,15 @@
         var myChart = echarts.init(document.getElementById('chart1'));
 
         option = {
+            color: ['#29B4B6'],
             title: {
-                text: '{{trans('home.traffic_log_30days')}}',
                 subtext: '{{trans('home.traffic_log_unit')}}'
             },
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
             },
             toolbox: {
                 show: true,
@@ -122,12 +147,15 @@
         var myChart = echarts.init(document.getElementById('chart2'));
 
         option = {
+            color: ['#29B4B6'],
             title: {
-                text: '{{trans('home.traffic_log_24hours')}}',
                 subtext: '{{trans('home.traffic_log_unit')}}'
             },
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
             },
             toolbox: {
                 show: true,

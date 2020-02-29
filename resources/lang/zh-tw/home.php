@@ -13,6 +13,10 @@ return [
     'download'                        => '下載',
 
     // 菜单
+    'dashboard'                       => '儀錶盤',
+    'nodelist'                        => '節點列表',
+    'service_dash'                    => '服務',
+    'other'                           => '其他',
     'home'                            => '個人中心',
     'my_service'                      => '我的服務',
     'services'                        => '購買服務',

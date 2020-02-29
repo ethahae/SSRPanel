@@ -1,41 +1,44 @@
 version: '3.1'
 services:
   db:
-    image: mysql:5.7
-		volumes:
-			- db_data:/var/lib/mysql
-    #command: --default-authentication-plugin=mysql_native_password
+    image: ryanw4ng/web:db
+    ports:
+      - "13306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
     environment:
+        MYSQL_ROOT_PASSWORD: random
         MYSQL_DATABASE: ssrpanel
         MYSQL_USER: ssrpanel
-        MYSQL_PASSWORD: ${MYSQL_PASS}
+        MYSQL_PASSWORD: ssrpanel
   web:
     image: ryanw4ng/web
+    environment:
+      DB_HOST: db
+      DB_USERNAME: ssrpanel
+      DB_PASSWORD: ssrpanel
+      MAIL_HOST: smtp.qq.com
+      MAIL_USERNAME: 12361629@163.com
+      MAIL_PASSWORD: nevernsl123
+    volumes:
+      - logs:/var/www/html/storage/logs
     ports: 
-			- "80:80"
-    depends_on: db
-		environment:
-			DB_HOST: db
-			DB_USER: ssrpanel
-      DB_PASSWORD: ${MYSQL_PASS}
-  quene:
-    image: ryanw4ng/web
-    depends_on: db
-    environment:
-			DB_HOST: db
-			DB_USER: ssrpanel
-      DB_PASSWORD: ${MYSQL_PASS}
-    entrypoint: php artisan queue:work database --queue=default --timeout=60 --sleep=5 --tries=3
-  cron:
-    image: ryanw4ng/web
-    environment:
-			DB_HOST: db
-			DB_USER: ssrpanel
-      DB_PASSWORD: ${MYSQL_PASS}
-    entrypoint: cron -f
-  ssgo:
-    image: ryanw4ng/ssgo
-    environment: 
+      - "91:80"
+    depends_on: 
+      - db
+#  ssgo:
+#    image: ryanw4ng/ssgo
+#    depends_on: 
+#      - db
+#    environment:
+#      NODE_ID: 1
+#      DB_HOST: 27.102.118.61
+#      DB_USERNAME: ssrpanel
+#      DB_PASSWORD: ${MYSQL_PASS}
+#      DB_PORT: 13306
+#    ports:
+#      - "9990-10000:9990-10000"
       
 volumes:
-	db_data:
+  db_data:
+  logs:

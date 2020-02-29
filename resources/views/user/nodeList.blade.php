@@ -6,19 +6,24 @@
     <div class="page-content" style="padding-top:0;">
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light">
+                <div class="portlet green-steel box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="font-grey">{{trans('home.service_status')}}</span>
+                        </div>
+                    </div>
                     <div class="portlet-body">
                         <ul class="list-inline">
                             <li>
                                 <h4>
-                                    <span class="font-blue">{{trans('home.account_expire')}}：</span>
-                                    <span class="font-red">@if(date('Y-m-d') > Auth::user()->expire_time) {{trans('home.expired')}} @else {{Auth::user()->expire_time}} @endif</span>
+                                    <span class="font-green-steel">{{trans('home.account_expire')}}：</span>
+                                    <span class="font-blue-steel">@if(date('Y-m-d') > Auth::user()->expire_time) {{trans('home.expired')}} @else {{Auth::user()->expire_time}} @endif</span>
                                 </h4>
                             </li>
                             <li>
                                 <h4>
-                                    <span class="font-blue">{{trans('home.account_bandwidth_usage')}}：</span>
-                                    <span class="font-red">{{flowAutoShow(Auth::user()->u + Auth::user()->d)}}（{{flowAutoShow(Auth::user()->transfer_enable)}}）</span>
+                                    <span class="font-green-steel">{{trans('home.account_bandwidth_usage')}}：</span>
+                                    <span class="font-blue-steel">{{flowAutoShow(Auth::user()->u + Auth::user()->d)}}（{{flowAutoShow(Auth::user()->transfer_enable)}}）</span>
                                 </h4>
                             </li>
                             @if(Auth::user()->traffic_reset_day)
@@ -36,10 +41,10 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet light">
+                <div class="portlet green-steel box">
                     <div class="portlet-title">
                         <div class="caption">
-                            <span class="caption-subject font-blue bold">{{trans('home.subscribe_address')}}</span>
+                            <span class="caption-subject font-grey bold">{{trans('home.subscribe_address')}}</span>
                         </div>
                         <div class="actions">
 
@@ -47,7 +52,9 @@
                     </div>
                     @if(Auth::user()->subscribe->status)
                         @if($nodeList->isEmpty())
-                            <div style="text-align: center;"><h2>请先<a href="{{url('services')}}">购买服务</a></h2></div>
+                            <div class="portlet-body">
+                                <div style="text-align: center;"><h2>请先<a href="{{url('services')}}">购买服务</a></h2></div>
+                            </div>
                         @else
                             <div class="portlet-body">
                                 <div class="mt-clipboard-container">
