@@ -15,6 +15,7 @@ use App\Http\Models\User;
 use App\Http\Models\UserLabel;
 use App\Mail\sendUserInfo;
 use Illuminate\Http\Request;
+use Response;
 use Log;
 use DB;
 use Mail;
@@ -39,8 +40,8 @@ class YzyController extends Controller
     // 接收GET请求
     public function index(Request $request)
     {
-        \Log::info("【有赞云】回调接口[GET]：" . var_export($request->all(), true) . '[' . getClientIp() . ']');
-        exit("【有赞云】接口正常");
+        Log::info("【有赞云】回调接口[GET]：" . var_export($request->all(), true) . '[' . getClientIp() . ']');
+        return Response::json(['status' => 'success', 'data' => '', 'message' => 'ok']);
     }
 
     // 接收POST请求
@@ -391,3 +392,4 @@ class YzyController extends Controller
         return $obj->id;
     }
 }
+?>

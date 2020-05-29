@@ -12,6 +12,7 @@ use App\Http\Models\UserSubscribe;
 use App\Http\Models\UserTrafficModifyLog;
 use Illuminate\Database\QueryException;
 use Log;
+use Cache;
 
 class Helpers
 {
@@ -125,6 +126,14 @@ class Helpers
         }
 
         return $code;
+    }
+
+    //生成cps用户token
+    public static function makeCpsToken()
+    {
+        //可能会重复, 小概率, 算了
+        $token = makeRandStr(64);
+        return $token;
     }
 
     /**

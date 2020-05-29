@@ -40,11 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        'cps' => [
+            'driver' => 'jwt',
+            'provider' => 'cps_user',
+        ]
     ],
 
     /*
@@ -69,7 +72,10 @@ return [
             'driver' => 'eloquent',
             'model'  => App\Http\Models\User::class,
         ],
-
+        'cps_user' => [
+            'driver' => 'eloquent',
+            'model' => App\Http\Models\CpsUser::class,
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

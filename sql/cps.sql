@@ -1,0 +1,35 @@
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+CREATE TABLE `cps_user` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`nickname` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '用户昵称',
+	`account` VARCHAR(128) NOT NULL COMMENT '账号', 
+	`password` VARCHAR(128) NOT NULL COMMENT '密码',
+	`last_login` datetime,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+	INDEX `account` (`idx_account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='cps用户';
+
+CREATE TABLE `cps_channel` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`cps_user_id` INT(11) NOT NULL,
+	`name` VARCHAR(128) NOT NULL,
+	`code` VARCHAR(128) NOT NULL, 
+	`user_viewed` INT(11) NOT NULL DEFAULT 0,
+	`note` TEXT NULL COMMENT '描述',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+	INDEX `cps_user_id` (`idx_cps_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='cps用户的推广渠道';
+
